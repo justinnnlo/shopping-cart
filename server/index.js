@@ -1,16 +1,15 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const apiRoutes = require("./routes/api");
 const uiRoutes = require("./routes/ui");
-require("dotenv").config();
+const config = require("./utils/config");
 
 const app = express();
 
 const port = process.env.PORT || 5000;
 
 mongoose
-  .connect(process.env.DB, {
+  .connect(config.DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -32,7 +31,7 @@ app.use((req, res, next) => {
 
 app.use(express.static(__dirname + "/public"));
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.use("/api", apiRoutes);
 app.use("/ui", uiRoutes);
