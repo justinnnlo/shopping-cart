@@ -30,7 +30,9 @@ const Header = ({ products }) => {
             </tr>
           </tbody>
         </table>
-        <a className="button checkout">Checkout</a>
+        <a className="button checkout" href="#">
+          Checkout
+        </a>
       </div>
     </header>
   );

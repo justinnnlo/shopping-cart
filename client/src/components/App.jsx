@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import React from "react";
+import services from "../services/productService";
 import Header from "./Header";
 import ProductList from "./ProductList";
 import AddProductForm from "./AddProductForm";
-import data from "../lib/data";
 
 const App = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
+    console.log(`in use effect`);
+    const data = services.getAllProducts();
     setProducts(data);
   }, []);
 
