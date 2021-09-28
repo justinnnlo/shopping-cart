@@ -1,0 +1,9 @@
+POST http://localhost:5000/api/products HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 4,
+    "title": "Tinker, Tailor, Soldier, Spy - A John le Carre Novel",
+    "quantity": 12,
+    "price": 13.74
+  }

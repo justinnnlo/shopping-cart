@@ -8,10 +8,14 @@ const Product = ({ product }) => {
         <p className="price">{`$${price}`}</p>
         <p className="quantity">{`${quantity} left in stock`}</p>
         <div className="actions product-actions">
-          <a className="button add-to-cart">Add to Cart</a>
-          <a className="button edit">Edit</a>
+          <a href="#/" className="button add-to-cart">
+            Add to Cart
+          </a>
+          <a href="#/" className="button edit">
+            Edit
+          </a>
         </div>
-        <a className="delete-button">
+        <a href="#/" className="delete-button">
           <span>X</span>
         </a>
       </div>
