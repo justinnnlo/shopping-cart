@@ -1,41 +1,25 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-const AddProductForm = ({ onFormSubmit }) => {
-  const [visible, setVisible] = useState(false);
-  const [name, setName] = useState("");
+const EditProductForm = ({ onFormSubmit, onClick, product }) => {
+  const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    console.log("clicked");
-    setVisible(!visible);
-  };
+  // const handleClick = (e) => {};
 
   const handleFormSubmit = (e) => {
     try {
       e.preventDefault();
-      onFormSubmit({ title: name, price, quantity });
+      onFormSubmit({ ...product, title: name, price, quantity });
     } catch (err) {
       console.error(err);
     }
   };
 
-  const formVisible = visible ? "add-form visible" : "add-form";
-
   return (
-    <div className={formVisible}>
-      <p>
-        <a
-          className="button add-product-button"
-          href="#/"
-          onClick={handleClick}
-        >
-          Add A Product
-        </a>
-      </p>
+    <div className="edit-form">
       <>
-        <h3>Add Product</h3>
+        <h3>Edit Product</h3>
         <form onSubmit={handleFormSubmit}>
           <div className="input-group">
             <label htmlFor="product-name">Product Name</label>
@@ -74,9 +58,9 @@ const AddProductForm = ({ onFormSubmit }) => {
               className="button"
               onClick={handleFormSubmit}
             >
-              Add
+              Save
             </a>
-            <a href="#/" className="button">
+            <a href="#/" className="button" onClick={onClick}>
               Cancel
             </a>
           </div>
@@ -86,4 +70,4 @@ const AddProductForm = ({ onFormSubmit }) => {
   );
 };
 
-export default AddProductForm;
+export default EditProductForm;

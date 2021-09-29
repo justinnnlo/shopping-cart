@@ -1,22 +1,22 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const Product = require("../models/product");
-const CartItem = require("../models/cartItem");
+const Product = require('../models/product');
+const CartItem = require('../models/cartItem');
 
-router.get("/products", (req, res, next) => {
+router.get('/products', (req, res, next) => {
   Product.find({})
     .then((products) => res.json(products))
     .catch(next);
 });
 
-router.post("/products", (req, res, next) => {
+router.post('/products', (req, res, next) => {
   const { title, price, quantity } = req.body;
   Product.create({ title, price, quantity })
     .then((product) => res.json(product))
     .catch((err) => next(err));
 });
 
-router.put("/products/:id", (req, res) => {
+router.put('/products/:id', (req, res) => {
   const productId = req.params.id;
   const { title, price, quantity } = req.body;
   Product.findById(productId)
@@ -36,7 +36,7 @@ router.put("/products/:id", (req, res) => {
     });
 });
 
-router.delete("/products/:id", (req, res, next) => {
+router.delete('/products/:id', (req, res, next) => {
   const productId = req.params.id;
   Product.findByIdAndRemove(productId)
     .then(() => {
@@ -45,7 +45,7 @@ router.delete("/products/:id", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.post("/cart", (req, res) => {
+router.post('/cart', (req, res) => {
   const { productId, title, price } = req.body;
   CartItem.findOne({
     productId,
@@ -73,13 +73,13 @@ router.post("/cart", (req, res) => {
     });
 });
 
-router.post("/cart/checkout", (req, res) => {
+router.post('/cart/checkout', (req, res) => {
   CartItem.deleteMany({}).then(() => {
     res.json();
   });
 });
 
-router.get("/cart", (req, res, next) => {
+router.get('/cart', (req, res, next) => {
   CartItem.find({})
     .then((cartItems) => res.json(cartItems))
     .catch(next);

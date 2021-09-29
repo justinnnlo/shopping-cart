@@ -1,4 +1,6 @@
-const Header = ({ products }) => {
+import Cart from './Cart';
+
+const Header = ({ cartItems, onCheckoutCart }) => {
   return (
     <header>
       <h1>The Shop!</h1>
@@ -11,28 +13,9 @@ const Header = ({ products }) => {
               <th>Quantity</th>
               <th>Price</th>
             </tr>
-            {products.map((product) => {
-              return (
-                <tr key={product.id}>
-                  <td>{`${product.title}`}</td>
-                  <td>{1}</td>
-                  <td>{`$${product.price}`}</td>
-                </tr>
-              );
-            })}
-            <tr>
-              <td colSpan="3" className="total">
-                Total: $
-                {products
-                  .map((product) => product.price)
-                  .reduce((acc, num) => acc + num, 0)}
-              </td>
-            </tr>
+            <Cart cartItems={cartItems} onCheckoutCart={onCheckoutCart} />
           </tbody>
         </table>
-        <a className="button checkout" href="#/">
-          Checkout
-        </a>
       </div>
     </header>
   );
