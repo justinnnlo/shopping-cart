@@ -1,15 +1,29 @@
-import { useState } from "react";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import * as actions from '../actions/productsActions';
 
-const AddProductForm = ({ onFormSubmit }) => {
+const AddProductForm = () => {
   const [visible, setVisible] = useState(false);
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
+  const dispatch = useDispatch();
 
   const handleClick = (e) => {
     e.preventDefault();
-    console.log("clicked");
+    console.log('clicked');
     setVisible(!visible);
+  };
+
+  const onFormSubmit = async (product) => {
+    try {
+      const response = await axios.post(`/api/products`, product);
+      dispatch(actions.productAdded(response.data));
+      setVisible(!visible);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleFormSubmit = (e) => {
@@ -21,7 +35,7 @@ const AddProductForm = ({ onFormSubmit }) => {
     }
   };
 
-  const formVisible = visible ? "add-form visible" : "add-form";
+  const formVisible = visible ? 'add-form visible' : 'add-form';
 
   return (
     <div className={formVisible}>

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
 const EditProductForm = ({ onFormSubmit, onClick, product }) => {
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState(0);
-  const [quantity, setQuantity] = useState(0);
+  const [name, setName] = useState(product.title);
+  const [price, setPrice] = useState(product.price);
+  const [quantity, setQuantity] = useState(product.quantity);
 
   // const handleClick = (e) => {};
 
