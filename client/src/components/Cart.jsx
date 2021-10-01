@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { cartItemsReceived } from '../actions/cartActions';
-import axios from 'axios';
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart);
@@ -10,11 +9,7 @@ const Cart = () => {
   useEffect(() => {
     const getAllCartItems = async () => {
       try {
-        const response = await axios.get('/api/cart');
-        const cartItems = response.data;
-
-        // dispatch({ type: 'CART_ITEMS_RECEIVED', payload: { cartItems } });
-        dispatch(cartItemsReceived(cartItems));
+        dispatch(cartItemsReceived());
       } catch (err) {
         console.error(err);
       }
@@ -41,9 +36,6 @@ const Cart = () => {
             .reduce((acc, num) => acc + num, 0)}
         </td>
       </tr>
-      {/* <a className="button checkout" href="#/" onClick={handleClick}>
-        Checkout
-      </a> */}
     </>
   );
 };

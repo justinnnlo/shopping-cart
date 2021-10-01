@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
-import * as actions from '../actions/productsActions';
+import * as productActions from '../actions/productsActions';
 
 const AddProductForm = () => {
   const [visible, setVisible] = useState(false);
@@ -10,20 +9,20 @@ const AddProductForm = () => {
   const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch();
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    console.log('clicked');
+  const resetForm = () => {
+    setName('');
+    setPrice(0);
+    setQuantity(0);
     setVisible(!visible);
   };
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    resetForm();
+  };
+
   const onFormSubmit = async (product) => {
-    try {
-      const response = await axios.post(`/api/products`, product);
-      dispatch(actions.productAdded(response.data));
-      setVisible(!visible);
-    } catch (err) {
-      console.error(err);
-    }
+    dispatch(productActions.productAdded(product, resetForm));
   };
 
   const handleFormSubmit = (e) => {
@@ -90,7 +89,7 @@ const AddProductForm = () => {
             >
               Add
             </a>
-            <a href="#/" className="button">
+            <a href="#/" className="button" onClick={handleClick}>
               Cancel
             </a>
           </div>

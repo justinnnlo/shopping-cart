@@ -1,14 +1,12 @@
 import Cart from './Cart';
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
-import { checkOut } from '../actions/cartActions';
+import { checkOutCart } from '../actions/cartActions';
 
 const Header = ({ cartItems }) => {
   const dispatch = useDispatch();
   const onCheckoutCart = async () => {
     try {
-      await axios.post(`/api/cart/checkout`);
-      dispatch(checkOut());
+      dispatch(checkOutCart());
     } catch (err) {
       console.error(err);
     }
@@ -16,9 +14,9 @@ const Header = ({ cartItems }) => {
 
   const handleClick = (e) => {
     e.preventDefault();
-
     onCheckoutCart();
   };
+
   return (
     <header>
       <h1>The Shop!</h1>

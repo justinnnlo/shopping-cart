@@ -1,19 +1,21 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import * as productsActions from '../actions/productsActions';
 
-const EditProductForm = ({ onFormSubmit, onClick, product }) => {
+const EditProductForm = ({ handleClick, product }) => {
   const [name, setName] = useState(product.title);
   const [price, setPrice] = useState(product.price);
   const [quantity, setQuantity] = useState(product.quantity);
 
-  // const handleClick = (e) => {};
+  const dispatch = useDispatch();
+  const dispatchEditProduct = (product) => {
+    dispatch(productsActions.productEdited(product));
+  };
 
   const handleFormSubmit = (e) => {
-    try {
-      e.preventDefault();
-      onFormSubmit({ ...product, title: name, price, quantity });
-    } catch (err) {
-      console.error(err);
-    }
+    e.preventDefault();
+    dispatchEditProduct({ ...product, title: name, price, quantity });
+    handleClick(e);
   };
 
   return (
@@ -60,7 +62,7 @@ const EditProductForm = ({ onFormSubmit, onClick, product }) => {
             >
               Save
             </a>
-            <a href="#/" className="button" onClick={onClick}>
+            <a href="#/" className="button" onClick={handleClick}>
               Cancel
             </a>
           </div>
