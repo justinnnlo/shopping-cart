@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  client:
+    build: ./client
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./client:/usr/src/app
+      - node_modules_client:/usr/src/app/node_modules
+    env_file:
+      - ./client/.env
+    container_name: 'shopping_cart_client_container'
+  server:
+    build: ./server
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./server:/usr/src/app
+      - node_modules_server:/usr/src/app/node_modules
+    env_file:
+      - ./server/.env
+    container_name: 'shopping_cart_server_container'
+
+volumes:
+  node_modules_server:
+  node_modules_client:
